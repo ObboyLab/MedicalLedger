@@ -1,0 +1,75 @@
+/**
+ * Sample access control list.
+ */
+rule EverybodyCanReadEverything {
+    description: "Allow all participants read access to all resources"
+    participant: "org.mediledger.Entity"
+    operation: READ
+    resource: "org.mediledger.*"
+    action: ALLOW
+}
+
+rule OwnerHasFullAccessToTheirAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "org.mediledger.Entity"
+    operation: ALL
+    resource(r): "org.mediledger.Medicine"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule EntityCanChangeStateToProduction {
+    description: "Allow the entity to change the state of the pizza to production"
+    participant: "org.mediledger.Entity"
+    operation: CREATE
+    resource: "org.mediledger.ChangeStateToProduction"
+    action: ALLOW
+}
+
+rule EntityCanChangeStateToFreezing {
+    description: "Allow the entity to change the state of the pizza to freezing"
+    participant: "org.mediledger.Entity"
+    operation: CREATE
+    resource: "org.mediledger.ChangeStateToFreezing"
+    action: ALLOW
+}
+
+rule EntityCanChangeStateToPackaging {
+    description: "Allow the entity to change the state of the pizza to packaging"
+    participant: "org.mediledger.Entity"
+    operation: CREATE
+    resource: "org.mediledger.ChangeStateToPackaging"
+    action: ALLOW
+}
+
+rule EntityCanChangeStateToDistribution {
+    description: "Allow the entity to change the state of the pizza to packaging"
+    participant: "org.mediledger.Entity"
+    operation: CREATE
+    resource: "org.mediledger.ChangeStateToPackaging"
+    action: ALLOW
+}
