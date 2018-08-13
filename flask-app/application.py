@@ -34,7 +34,9 @@ def submitMedicine():
     
     return("The status code of the POST is : " + str(r.status_code)+" , " + str(r.text))
 
-
+@app.route("/changeOwner/<owner>", methods=['POST','GET'])
+def changeOwner(owner):
+    return owner
 @app.route("/wholesaler")
 def wholesaler():
     return render_template('wholesaler.html',title="Wholesaler")

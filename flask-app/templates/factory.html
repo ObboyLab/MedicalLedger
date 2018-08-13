@@ -3,7 +3,7 @@
         {% include 'header.html' %}
 
     <body>
-        <h3>Welcome , {{ title }}!</h3>
+        <h3>Welcome to {{ title }}!</h3>
         <div class="transactions">
                 <h4>Transactions (GET Request on Medicine Asset)</h4>
                 <hr/>
@@ -51,15 +51,10 @@
                                 </div>
                               </div>
                               <input type="submit" class="waves-effect waves-light btn our-colour" value="Submit" name="">
-                        </form>
-                      </div>
-                    <!-- END FORM -->
-                  </div>
-                    <h4>Actions</h4>
-                    <hr/>
-                  <div class="action">
-                      <a class="waves-effect waves-light btn our-colour">Change State</a>
-                      <a class="waves-effect waves-light btn our-colour">Change Owner</a>
-                  </div>
-                </body>
-    </html>
+                              <input  onclick="location.href='/changeOwner/wholesaler';" class="waves-light btn our-colour" type="button" value="Transfer Ownership" style="color: white;"  name="">
+          </form>
+        </div>
+      <!-- END FORM -->
+  </body>
+</html>
+</html>
