@@ -21,20 +21,15 @@ def factory():
 @app.route("/submitMedicine", methods=['POST',  'GET'])
 def submitMedicine():
     json_val = {
-	  "$class": "org.mediledger.Medcine",
+	  "$class": "org.mediledger.Medicine",
 	  "medicineId": "napa1",
-	  "timestamp": request.form['firstname'],
+	  "timestamp": request.form['timestamp'],
 	  "date": request.form['date'],
 	  "state": request.form['state'],
-	  "owner": {
-	    "$class": "org.mediledger.Entity",
-	    "entityId": "factory",
-	    "entityType": "factory",
-	    "firstName": request.form['firstname'],
-	    "lastName": request.form['lastname']
-	  }
+	  "owner": "resource:org.mediledger.Entity#" + request.form['company_name']
 	}
-    requests.post('http://localhost:3000/api/Medicine/medicine', data = json_val)
+    a=requests.post('http://localhost:3000/api/Medicine', data = json_val)
+    print(a.status_code)
     return(str(json_val))
 
 
