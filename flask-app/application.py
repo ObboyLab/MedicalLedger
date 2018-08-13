@@ -18,6 +18,26 @@ def factory():
     return render_template('factory.html', title="Factory", transactions=transactions)
 
 
+@app.route("/submitMedicine", methods=['POST',  'GET'])
+def submitMedicine():
+    json_val = {
+	  "$class": "org.mediledger.Medcine",
+	  "medicineId": "napa1",
+	  "timestamp": request.form['firstname'],
+	  "date": request.form['date'],
+	  "state": request.form['state'],
+	  "owner": {
+	    "$class": "org.mediledger.Entity",
+	    "entityId": "factory",
+	    "entityType": "factory",
+	    "firstName": request.form['firstname'],
+	    "lastName": request.form['lastname']
+	  }
+	}
+    requests.post('http://localhost:3000/api/Medicine/medicine', data = json_val)
+    return(str(json_val))
+
+
 @app.route("/wholesaler")
 def wholesaler():
     return render_template('wholesaler.html',title="Wholesaler")
