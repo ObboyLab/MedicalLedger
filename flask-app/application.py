@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import os 
-
+import random 
 app = Flask(__name__)
 
 # Route: index page
@@ -20,17 +20,19 @@ def factory():
 
 @app.route("/submitMedicine", methods=['POST',  'GET'])
 def submitMedicine():
+    
+    random_val = str(random.randint(1,9999))
     json_val = {
 	  "$class": "org.mediledger.Medicine",
-	  "medicineId": "napa1",
-	  "timestamp": request.form['timestamp'],
-	  "date": request.form['date'],
-	  "state": request.form['state'],
+	  "medicineId": random_val,
+	  "timestamp": request.form['timestamp'].lower().encode("utf-8"),
+	  "date": request.form['date'].lower().encode("utf-8"),
+	  "state": request.form['state'].lower().encode("utf-8"),
 	  "owner": "resource:org.mediledger.Entity#" + request.form['company_name']
 	}
-    a=requests.post('http://localhost:3000/api/Medicine', data = json_val)
-    print(a.status_code)
-    return(str(json_val))
+    r = requests.post('http://localhost:3000/api/Medicine', data = json_val)
+    
+    return("The status code of the POST is : " + str(r.status_code)+" , " + str(r.text))
 
 
 @app.route("/wholesaler")
