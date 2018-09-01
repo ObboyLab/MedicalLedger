@@ -10,6 +10,8 @@ composer network install --card PeerAdmin@hlfv1 --archiveFile mediledger@0.0.1.b
 
 composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw  --file networkadmin.card --networkName mediledger --networkVersion 0.0.1
 
+composer card import --file networkadmin.card
+
 composer network ping --card admin@mediledger
 
 composer network ping --card admin@mediledger
